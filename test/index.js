@@ -3,7 +3,6 @@
 const fs = require('fs');
 const lambda_emfiles = require('@samwen/lambda-emfiles');
 
-// eslint-disable-next-line no-unused-vars
 exports.handler = async (event) => {
     console.log(event);
     let max_fds_needed = 100;
@@ -18,7 +17,7 @@ exports.handler = async (event) => {
         await lambda_emfiles.start_verify(max_fds_needed);
         //
         // simulate file descriptor leaks 
-        for (let i = 0;; i < leaks; i++) {
+        for (let i = 0; i < leaks; i++) {
             const filename = '/tmp/test' + i + '.txt';
             fs.open(filename, 'w', (err, fd) => {
                 if (err) {

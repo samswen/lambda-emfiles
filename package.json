@@ -1,6 +1,6 @@
 {
   "name": "@samwen/lambda-emfiles",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "solve node AWS lambda EMFILE issue",
   "main": "src/index.js",
   "directories": {

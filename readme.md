@@ -6,10 +6,12 @@ A solution to node AWS lambda EMFILE issue. If you spot following errors in your
 2) with ioredis, Failed to refresh slots cache
 3) with mongodb, MongoServerSelectionError
 4) EMFILE, too many open files
+
 ...
+
 etc
 
-It most likely caused by exceeding file descriptors limit of AWS lambda. lambda-emfiles provides solution to the problem.
+It most likely caused by exceeding the file descriptors limit of AWS lambda. lambda-emfiles provides solution to the problem.
 
 # how to use
 
@@ -54,7 +56,6 @@ example 2:
 ...
 ...
 *** emfiles count: 33, leaks: 9
-</pre>
 
 example 3:
 *** old process, emfiles count: 890

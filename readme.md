@@ -2,16 +2,18 @@
 
 A solution to node AWS lambda EMFILE issue. If you spot following errors in your lambda function logs:
 
-1) getaddrinfo EMFILE ...
-2) with ioredis, Failed to refresh slots cache
-3) with mongodb, MongoServerSelectionError
-4) EMFILE, too many open files
+1) getaddrinfo EMFILE
+2) EMFILE, too many open files
+3) with ioredis, Failed to refresh slots cache
+4) with mongodb, MongoError: no connection available, MongoServerSelectionError
 
 ...
 
 etc
 
-It most likely caused by exceeding the file descriptors limit of AWS lambda. lambda-emfiles provides solution to the problem.
+Most likely, it is caused by exceeding the file descriptors limit of AWS lambda. 
+
+lambda-emfiles provides solution to the problem.
 
 # how to use
 

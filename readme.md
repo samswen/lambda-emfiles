@@ -70,7 +70,7 @@ Runtime exited with error: exit status 1 Runtime.ExitError
 # what does it do:
 
 1) report file descriptor leaks to help find out the leakage.
-2) prevent it by exiting the process, when there is a deficit of file descriptors.
+2) prevent it by exiting the process when there is a deficit of file descriptors.
 
 # detail of the issue and solution
 
@@ -94,9 +94,9 @@ The best solution to the problem is to fix file descriptor leakage. lambda-emfil
 
 It takes time to fix file descriptor leakage, specially it works most of times. 
 
-The alternative approach is to exit the process before the file descriptors reach the max limit. 
+The alternative approach is to exit the process before the file descriptors reach the max limit. Once the process is gone, it will not reused. 
 
-Once the process is gone, it will not reused. lambda-emfiles calls process.exit(1) when it predicts a deficit of file descriptors in next run.
+lambda-emfiles calls process.exit(1) when it predicts a deficit of file descriptors in next run.
 
 ## Tunning of parameters: max_emfiles_needed and exit_process
 

@@ -70,7 +70,7 @@ Runtime exited with error: exit status 1 Runtime.ExitError
 # what does it do:
 
 1) report file descriptor leaks to help find out the leakage.
-2) prevent it by exiting the process when there is a deficit of file descriptors.
+2) prevent it by exiting the process before there is a deficit of file descriptors.
 
 # detail of the issue and solution
 

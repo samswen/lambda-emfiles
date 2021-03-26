@@ -74,7 +74,7 @@ Runtime exited with error: exit status 1 Runtime.ExitError
 
 # detail of the issue and solution
 
-AWS lambda process runs within a docker container in Amazon Linux environment. The maximum limit on file descriptors is 1000. Normally, it is very hard for a lambda function to exceeds the limit.
+AWS lambda process runs within a docker container in Amazon Linux environment. The maximum limit on file descriptors is 1000. Normally, it is very hard for a lambda function to exceed the limit.
 
 However, the lambda process within the container may be reused for performance optimization.
 
@@ -94,7 +94,7 @@ The best solution to the problem is to fix file descriptor leakage. lambda-emfil
 
 It takes time to fix file descriptor leakage, specially it works most of times. 
 
-lambda-emfiles calls process.exit(1) when it predicts a deficit of file descriptors in next run. Once the process is gone, it will not reused.
+Alternatively, lambda-emfiles calls process.exit(1) when it predicts a deficit of file descriptors in next run. Once the process is gone, it will not reused.
 
 ## Tunning of parameters: max_emfiles_needed and exit_process
 

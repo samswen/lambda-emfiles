@@ -69,8 +69,8 @@ Runtime exited with error: exit status 1 Runtime.ExitError
 
 # what does it do:
 
-1) report file descriptor leaks to help find out the leakage.
-2) prevent it by exiting the process before the file descriptors reach the max limit.
+1) report file descriptor leaks to help debug.
+2) prevent it. if the file descriptors will reach the max limit in next run, it exits the process. 
 
 # detail of the issue and solution
 
@@ -88,7 +88,7 @@ The chance that the lambda process is reused 10 times is really low.
 
 This is why the lambda runs OK for most of times. 
 
-But you can spot few errors caused by exceeding file descriptors limit after a while, it depends on how busy the lambda is running and the concurrency level of the lambda.
+But you can spot few errors caused by exceeding file descriptors limit after a while, it depends on how frequently the lambda is running and the concurrency level of the lambda.
 
 The best solution to the problem is to fix file descriptor leakage. lambda-emfiles provides report for this. 
 
@@ -98,7 +98,7 @@ Alternatively, lambda-emfiles calls process.exit(1) when it predicts a deficit o
 
 ## Tunning of parameters: max_emfiles_needed and exit_process
 
-The 2 public methods comes with default values for max_emfiles_needed and exit_process. The default values should work for most scenarios.
+The 2 public methods come with default values for max_emfiles_needed and exit_process. The default values should work for most scenarios.
 
 <pre>
 async start_verify(max_emfiles_needed = 100, exit_process = false)

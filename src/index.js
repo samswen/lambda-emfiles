@@ -15,13 +15,14 @@ class LambdaEmfiles {
      * 
      * @param {*} max_emfiles_needed estimated max file descriptors are needed
      * @param {*} exit_process to exit the running process if not ok
+     * @param {*} show_logs to show logs of the file descriptors
      * @returns 
      */
-    async start_verify(max_emfiles_needed = 100, exit_process = false) {
+    async start_verify(max_emfiles_needed = 100, exit_process = false, show_logs = true) {
         if (!await this.__update_lambda_emfiles_count()) {
-            console.log(`*** ${this.is_new ? 'new' : 'old'} process, NOT OK`);
+            if (show_logs) console.log(`*** ${this.is_new ? 'new' : 'old'} process, NOT OK`);
         } else {
-            console.log(`*** ${this.is_new ? 'new' : 'old'} process, emfiles count: ${this.emfiles_count}`);
+            if (show_logs) console.log(`*** ${this.is_new ? 'new' : 'old'} process, emfiles count: ${this.emfiles_count}`);
         }
         this.is_new = false;
         if (exit_process && (!this.is_ok || 1000 - this.emfiles_count < max_emfiles_needed)) {
@@ -35,6 +36,7 @@ class LambdaEmfiles {
      * *
      * @param {*} max_emfiles_needed estimated max file descriptors are needed
      * @param {*} exit_process to exit the running process if not ok
+     * @param {*} show_logs to show logs of the file descriptors
      *
      */
     async final_check(max_emfiles_needed = 100, exit_process = true) {
@@ -45,12 +47,13 @@ class LambdaEmfiles {
                 if (leaks > this.max_leaks) {
                     this.max_leaks = leaks;
                 }
-                console.log(`*** emfiles count: ${this.emfiles_count}, leaks: ${leaks}`);
+
+                if (show_logs) console.log(`*** emfiles count: ${this.emfiles_count}, leaks: ${leaks}`);
             } else {
-                console.log('*** no leak emfiles found');
+                if (show_logs) console.log('*** no leak emfiles found');
             }
         } else {
-            console.log('*** process, NOT OK');
+            if (show_logs) console.log('*** process, NOT OK');
         }
         if (exit_process) {
             if (max_emfiles_needed < this.max_leaks) {
